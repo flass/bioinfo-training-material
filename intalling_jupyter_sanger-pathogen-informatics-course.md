@@ -15,18 +15,40 @@ Then, follow the installation instructions to have Anaconda installed on your la
 If you are in trouble, have a look at this step-by-step tutorial explaining how to install Anaconda - but only if you did not succeed at first:
 https://towardsdatascience.com/how-to-successfully-install-anaconda-on-a-mac-and-actually-get-it-to-work-53ce18025f97
 
-Once that is done, Jupyter should be available to you from the command line; specifically, you can find the `jupyter` excutable there:  
+Once that is done, Jupyter and the other software installed through Anaconda should be available to you from the command line. You just need to know where to find them! 
+For that, run the following command to know the path to the executable file that is used when you call the simple command `python`:
+```
+which python
+```
+if Anaconda was installed properly, the main `python` command should point to the executable file provided by Anaconda. It can be something like this:
+```
+/anaconda3/bin/python
+```
+or like this (replacing `memyself` to your computer user name):
+```
+/Users/memyself/opt/anaconda3/bin/python
+```
+What matter is the leading part of the path, giving you where Anaconda was installed; in the examble above it is, `/anaconda3` and `/Users/memyself/opt/anaconda3`, respectively.
+
+
+Toi run the Sanger Pathogen bioinformatics course, we need the `jupyter` excutable, which should be alonside the `python` one, there:  
 ```
 /anaconda3/bin/jupyter
 ```
+or there:
+```
+/Users/memyself/opt/anaconda3/bin/jupyter
+```
 
-Additionally, you need to install a kernel - don't worry about what it is, I'm not even sure myself, but it is required. So in the Teminal, type:
+## 2. installing the bash kernel
+
+Additionally, you need to install a python kernel - don't worry about what it is, I'm not even sure myself, but it is required. for this we will use the Python package manager `pip`. It is found together with the `python` and `jupyter` commands, as described above. So, assuming that your Anaconda is installed in `/anaconda3`, you should type the following into the Teminal:
 ```
 /anaconda3/bin/pip install bash_kernel
 /anaconda3/bin/python -m bash_kernel.install
 ```
 
-## 2. installing the training course environment
+## 3. installing the training course environment
 
 First, you need to create a folder where you will put all your software; it's not absolutely necessary but it's a good practice that will help you keep on top of your informatics business! Here is a suggestionm using the command line terminal:
 ```
