@@ -31,7 +31,7 @@ or like this (replacing `memyself` to your computer user name):
 What matter is the leading part of the path, giving you where Anaconda was installed; in the examble above it is, `/anaconda3` and `/Users/memyself/opt/anaconda3`, respectively.
 
 
-Toi run the Sanger Pathogen bioinformatics course, we need the `jupyter` excutable, which should be alonside the `python` one, there:  
+To run the Sanger Pathogen bioinformatics course, we need the `jupyter` executable, which should be alonside the `python` one, there:  
 ```
 /anaconda3/bin/jupyter
 ```
