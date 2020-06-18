@@ -124,7 +124,7 @@ grep -n '>' 50yemen2018.pseudo_genome.snp.aln | head -n2
 head -n 2 50yemen2018.pseudo_genome.snp.aln > 50yemen2018pseudo_genome.snp.aln.firstseq
 ```
 
-# use R to compute the number of invariant sites (for each base type)
+Use R to compute the number of invariant sites (for each base type):
 ```R
 library(ape)
 ali.full = read.dna('50yemen2018.pseudo_genome.aln.firstseq', format='fasta')
@@ -137,19 +137,25 @@ base.freq(ali.full, freq=T) - base.freq(ali.snp, freq=T)
 quit(save='no')
 ```
 
-# check the alignment
+Check the alignment:
+```sh
 raxml-ng --check --msa 50yemen2018.pseudo_genome.snp.aln.first50seqs --model GTR+G4+ASC_STAM{1033912/936904/944544/1044465}
-# this prodcued the reduced alignment file in PHYLIP format
+```
+This produced the reduced alignment file in PHYLIP format
 
 
-### compute distance-based tree with FastME using this PHYLIP format SNPalignment
+Compute a distance-based tree with FastME using this PHYLIP format SNP alignment:
+```sh
 fastme 
-# use interactive prompt for fastme (commands are indicated below, one per line):
-# first enter the name of the input file
-# I -> input type: D -> DNA alignment;
-# E -> which model?: P -> P-distance = SNP distance;
-# B -> run bootstrapanalysis: 10 -> 10 replicates;
-# Y -> all is good, go!
+```
+Use the interactive prompt for `fastme` (commands are indicated below, one per line):
+- first enter the name of the input file
+- `I` -> input type: `D` -> DNA alignment;
+- `E` -> which model?: `P` -> P-distance = SNP distance;
+- `B` -> run bootstrapanalysis: `10` -> 10 replicates;
+- `Y` -> all is good, go!
+
+```
 50yemen2018.pseudo_genome.snp.aln.first50seqs.raxml.reduced.phy
 I
 D
@@ -158,19 +164,22 @@ P
 B
 10
 Y
+```
 
-# this can also be done through the command line
+This can also be done through the command line
+```sh
 fastme -i 50yemen2018.pseudo_genome.snp.aln.first50seqs.raxml.reduced.phy -d p -b 10
 # preferably use multiple threads - if yo have several CPU cores on your computer!
 fastme -i 50yemen2018.pseudo_genome.snp.aln.first50seqs.raxml.reduced.phy -d p -b 10 -T 4
-
-### compute maximum-likelihood tree with bootstrap support with RAxML-NG
+```
+Compute maximum-likelihood tree with bootstrap support with RAxML-NG
+```sh
 raxml-ng --all --msa 50yemen2018.pseudo_genome.snp.aln.first50seqs.raxml.reduced.phy --model GTR+G4 --tree pars{1} --bs-trees 10  --threads 4
+```
 
 
-
-### plot tree in front of metadata in R
-R
+### Plot the tree in front of metadata with R
+```R
 library(phytools)
 vcmetadata = read.table('50yemen2018.pseudo_genome.first50seqs.metadata.tsv', comment.char='', sep='\t', header=T,quote='')
 vctree = read.tree('50yemen2018.pseudo_genome.snp.aln.first50seqs.raxml.reduced.phy.raxml.support')
@@ -178,5 +187,5 @@ rownames(vcmetadata) = vcmetadata[,'Isolate.name']
 vcmetadata[,'outbreak.year'] = vcmetadata[,'Isolation.year'] - min(vcmetadata[,'Isolation.year'])
 phylo.heatmap(vctree, data.matrix(vcmetadata[, c('Country', 'outbreak.year')]))
 quit(save='no')
-# end of R code
+```
 
