@@ -1,0 +1,51 @@
+Isolate.name	Source	GenBank.accession.number	EBI.ENA.accession.number	Isolation.year	Isolation.date	Continent	UN.Subregion	Country	Locality.Province	Source.1	O	serotype	Antimicrobial.resistance.phenotype	MIC.NAL..mg.L.	MIC.CIP..mg.L.	MIC.COL..mg.L.	MIC.POL..mg.L.	MIC.FT..mg.L.	Genomic.wave	Introduction.event	rfb_01	VSP.II	ctxB	wbeT	tcpA	IncA.C	SXT	blaCTX.M.15	blaOXA.10	blaSCO.1	blaTEM.1B	strA.strB	aadA1	aac.3..IIa	floR	cmlA1	sul1	sul2	dfrA1	dfrA31	tet.A.	tet_new	QnrVC1	mph.E.	msr.E.	ARR.3	gyrA	parC	VC_0715	VC_A0637	VC_0202	VC_0303	VC_1319	VC_1320	VC_1577	VC_1578	VC_1579
+CNRVC000043	Weill et al. Science 2017		ERR1877638          	2000				Uganda								NA	NA	NA	NA																																						
+CNRVC000085	Weill et al. Science 2017		ERR1877640          	2000				Comoros								NA	NA	NA	NA																																						
+CNRVC000209	Weill et al. Science 2017		ERR1877641          	2000				Rwanda								NA	NA	NA	NA																																						
+CNRVC000323	Weill et al. Science 2017		ERR1877643          	2000				Cameroon								NA	NA	NA	NA																																						
+CNRVC010023	Weill et al. Science 2017		ERR1877645          	2000				Cameroon								NA	NA	NA	NA																																						
+CNRVC010042	Weill et al. Science 2017		ERR1877647          	2001				Cote d'Ivoire								NA	NA	NA	NA																																						
+CNRVC010045	Weill et al. Science 2017		ERR1877648          	2001				Comoros								NA	NA	NA	NA																																						
+CNRVC010048	Weill et al. Science 2017		ERR1877938          	2000				Djibouti								NA	NA	NA	NA																																						
+CNRVC010061	Weill et al. Science 2017		ERR1877941          	2001				Burundi								NA	NA	NA	NA																																						
+CNRVC010062	Weill et al. Science 2017		ERR1877942          	2001				Burundi								NA	NA	NA	NA																																						
+CNRVC010100	Weill et al. Science 2017		ERR1877943          	2001				Indonesia								NA	NA	NA	NA																																						
+CNRVC010108	Weill et al. Science 2017		ERR1877944          	2001				Togo								NA	NA	NA	NA																																						
+CNRVC010120	Weill et al. Science 2017		ERR1877945          	2001				Chad								NA	NA	NA	NA																																						
+CNRVC010203	Weill et al. Science 2017		ERR1877947          	2001				Chad								NA	NA	NA	NA																																						
+CNRVC010205	Weill et al. Science 2017		ERR1877948          	2001				Burkina Faso								NA	NA	NA	NA																																						
+CNRVC010206	Weill et al. Science 2017		ERR1877949          	2001				Burkina Faso								NA	NA	NA	NA																																						
+CNRVC010221	Weill et al. Science 2017		ERR1877950          	2001				Cameroon								NA	NA	NA	NA																																						
+CNRVC010254	Weill et al. Science 2017		ERR1877952          	2001				Democratic Republic of the Congo								NA	NA	NA	NA																																						
+CNRVC020003	Weill et al. Science 2017		ERR1877953          	2002				Comoros								NA	NA	NA	NA																																						
+CNRVC020062	Weill et al. Science 2017		ERR1877954          	2002				Liberia								NA	NA	NA	NA																																						
+CNRVC020284	Weill et al. Science 2017		ERR1877955          	2002				Democratic Republic of the Congo								NA	NA	NA	NA																																						
+CNRVC020361	Weill et al. Science 2017		ERR1877956          	2002				Benin								NA	NA	NA	NA																																						
+CNRVC020367	Weill et al. Science 2017		ERR1877957          	2002				Benin								NA	NA	NA	NA																																						
+CNRVC020393	Weill et al. Science 2017		ERR1878088          	2002				Liberia								NA	NA	NA	NA																																						
+CNRVC020404	Weill et al. Science 2017		ERR1878089          	2002				Cote d'Ivoire								NA	NA	NA	NA																																						
+CNRVC030032	Weill et al. Science 2017		ERR1878090          	2003				Democratic Republic of the Congo								NA	NA	NA	NA																																						
+CNRVC030082	Weill et al. Science 2017		ERR1878091          	2003				Benin								NA	NA	NA	NA																																						
+CNRVC030084	Weill et al. Science 2017		ERR1878092          	2003				Benin								NA	NA	NA	NA																																						
+CNRVC030293	Weill et al. Science 2017		ERR1878093          	2003				Democratic Republic of the Congo								NA	NA	NA	NA																																						
+CNRVC030391	Weill et al. Science 2017		ERR1878094          	2003				Somalia								NA	NA	NA	NA																																						
+CNRVC030392	Weill et al. Science 2017		ERR1878095          	2003				Somalia								NA	NA	NA	NA																																						
+CNRVC030469	Weill et al. Science 2017		ERR1878097          	2003				Democratic Republic of the Congo								NA	NA	NA	NA																																						
+CNRVC030475	Weill et al. Science 2017		ERR1878098          	2003				Liberia								NA	NA	NA	NA																																						
+CNRVC030477	Weill et al. Science 2017		ERR1878099          	2003				Liberia								NA	NA	NA	NA																																						
+CNRVC030485	Weill et al. Science 2017		ERR1878100          	2003				Cote d'Ivoire								NA	NA	NA	NA																																						
+CNRVC030519	Weill et al. Science 2017		ERR1878101          	2002				Democratic Republic of the Congo								NA	NA	NA	NA																																						
+CNRVC030567	Weill et al. Science 2017		ERR1878102          	2003				Cote d'Ivoire								NA	NA	NA	NA																																						
+CNRVC030593	Weill et al. Science 2017		ERR1878103          	2003				Comoros								NA	NA	NA	NA																																						
+CNRVC030594	Weill et al. Science 2017		ERR1878104          	2003				Comoros								NA	NA	NA	NA																																						
+CNRVC040061	Weill et al. Science 2017		ERR1878105          	2004				Cameroon								NA	NA	NA	NA																																						
+CNRVC040074	Weill et al. Science 2017		ERR1878106          	2001				Cameroon								NA	NA	NA	NA																																						
+CNRVC040082	Weill et al. Science 2017		ERR1878107          	2002				Cameroon								NA	NA	NA	NA																																						
+CNRVC040110	Weill et al. Science 2017		ERR1878108          	2004				Cameroon								NA	NA	NA	NA																																						
+CNRVC040127	Weill et al. Science 2017		ERR1878109          	2004				Benin								NA	NA	NA	NA																																						
+CNRVC040132	Weill et al. Science 2017		ERR1878110          	2004				Benin								NA	NA	NA	NA																																						
+CNRVC040203	Weill et al. Science 2017		ERR1878111          	2004				Sierra Leone								NA	NA	NA	NA																																						
+CNRVC040206	Weill et al. Science 2017		ERR1878112          	2004				Guinea								NA	NA	NA	NA																																						
+CNRVC040209	Weill et al. Science 2017		ERR1878113          	2004				Niger								NA	NA	NA	NA																																						
+CNRVC040210	Weill et al. Science 2017		ERR1878114          	2004				Niger								NA	NA	NA	NA																																						
+CNRVC040257	Weill et al. Science 2017		ERR1878115          	2004				Sierra Leone								NA	NA	NA	NA																																						
