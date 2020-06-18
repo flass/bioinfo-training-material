@@ -6,11 +6,13 @@
 ```sh
 conda install -c bioconda clustalo
 conda install -c bioconda raxml-ng
+conda install -c bioconda snp-sites
 ```
 ### or downloading separately
 
 http://www.atgc-montpellier.fr/fastme/binaries.php
 http://doua.prabi.fr/software/seaview
+http://sanger-pathogens.github.io/snp-sites/
 
 You can find a nice tutorialon how to use RAxML-NG on its wiki page: https://github.com/amkozlov/raxml-ng/wiki.
 
@@ -83,10 +85,13 @@ raxml-ng --all --msa Vibrio_spp_16S.aln.raxml.reduced.phy.raxml.rba --model GTR+
 # do all this at once
 ```
 
-## Big whole-genome alignment and tree
+## 3. Big whole-genome alignment and tree
 
+We'll try and build a tree from a whole-genome alignment, based on a subset of data from the study by Weill et al. (Nature, 2018) on the Yemen cholera epidemics: https://www.nature.com/articles/s41586-018-0818-3.  
 
-The whole-genome alignment is too big, with more than 4M sites (alignment collumns)! This would take unnecessarily long to process.
+The alignment was obtained by mapping each set of sequencing reads to the reference genome of strain N16961 (assembly [GCF_900205735.1](https://www.ncbi.nlm.nih.gov/assembly/GCF_900205735.1) with SMALT (this will be covered by another tutorial!).
+
+The whole-genome alignment is too big, with more than 4M sites (alignment collumns)! This would take unnecessarily long to tree-building process.
 
 To tackle this, let's reduce the big whole-genome alignment to only the variable positions = a SNP alignment using `snp-sites`.
 ```sh
