@@ -10,11 +10,11 @@ conda install -c bioconda snp-sites
 ```
 ### or downloading separately
 
-http://www.atgc-montpellier.fr/fastme/binaries.php
-http://doua.prabi.fr/software/seaview
-http://sanger-pathogens.github.io/snp-sites/
+http://www.atgc-montpellier.fr/fastme/binaries.php  
+http://doua.prabi.fr/software/seaview  
+http://sanger-pathogens.github.io/snp-sites/  
 
-You can find a nice tutorialon how to use RAxML-NG on its wiki page: https://github.com/amkozlov/raxml-ng/wiki.
+You can find a nice tutorial on how to use RAxML-NG on its wiki page: https://github.com/amkozlov/raxml-ng/wiki.
 
 
 ## 2. Building 16S rRNA gene tree
