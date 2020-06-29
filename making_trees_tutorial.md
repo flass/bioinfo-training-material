@@ -61,29 +61,41 @@ seaview Vibrio_spp_16S.aln &
 ```
 
 Some sequences do not seem homologous or are the inverted complement of the sequence and won't align; tou may have to remove these sequences from the alignment by selecting them on the left and using `Edit > Delete sequence(s)`.
-A copy excluding these sequences is saved in the file `Vibrio_spp_16S.fasta.excludeInvertedSeqs`. 	 	
+A copy excluding these sequences is saved in the file `Vibrio_spp_16S.excludeInvertedSeqs.fasta`.
+
+You may then want to re-align the restricted set of sequences:
+```sh
+clustalo -i Vibrio_spp_16S.excludeInvertedSeqs.fasta -o Vibrio_spp_16S.excludeInvertedSeqs.aln --threads 4
+```
 
 ### Build a tree with RAxML-NG
 ```sh
 # check the alignment is in the correct format and not corrupted
-raxml-ng --check --msa Vibrio_spp_16S.aln --model GTR+G4
+raxml-ng --check --msa Vibrio_spp_16S.excludeInvertedSeqs.aln --model GTR+G4
+
+# there are unauthorized characters in the sequence labels!
+# produce clean labels
+sed -e 's/ 16S.*//g' Vibrio_spp_16S.excludeInvertedSeqs.aln | sed -e 's/ /_/g' > Vibrio_spp_16S.excludeInvertedSeqs.cleannames.aln
+
+# check the alignment is now in the correct format
+raxml-ng --check --msa Vibrio_spp_16S.excludeInvertedSeqs.cleannames.aln --model GTR+G4
 
 # search for maximum-likelhood tree
-raxml-ng --search --msa Vibrio_spp_16S.aln.raxml.reduced.phy --model GTR+G4 --tree pars{1} --threads 4
+raxml-ng --search --msa Vibrio_spp_16S.excludeInvertedSeqs.cleannames.aln.raxml.reduced.phy --model GTR+G4 --tree pars{1} --threads 4
 # produce the ML tree file Vibrio_spp_16S.aln.raxml.reduced.phy.raxml.bestTree
 
 # run bootstrap analysis = infer trees from many (here 10) subsamples of the alignment data (random picking the column of the alignment)
-raxml-ng --bootstrap --msa Vibrio_spp_16S.aln.raxml.reduced.phy --model GTR+G4 --threads 4 --bs-trees 10
+raxml-ng --bootstrap --msa Vibrio_spp_16S.excludeInvertedSeqs.cleannames.aln.raxml.reduced.phy --model GTR+G4 --threads 4 --bs-trees 10
 # produce the bootstrap tree file Vibrio_spp_16S.aln.raxml.reduced.phy.raxml.bootstraps
 
 # map the bootstrap as supports to the main ML tree branches
 # branch supports = frequency of observing the ML tree's splits in the sample of bootstrap trees
-raxml-ng --support --msa Vibrio_spp_16S.aln.raxml.reduced.phy --model GTR+G4 --threads 4 \
- --tree Vibrio_spp_16S.aln.raxml.reduced.phy.raxml.bestTree \
- --bs-trees Vibrio_spp_16S.aln.raxml.reduced.phy.raxml.bootstraps
+raxml-ng --support --msa Vibrio_spp_16S.excludeInvertedSeqs.cleannames.aln.raxml.reduced.phy --model GTR+G4 --threads 4 \
+ --tree Vibrio_spp_16S.excludeInvertedSeqs.cleannames.aln.raxml.reduced.phy.raxml.bestTree \
+ --bs-trees Vibrio_spp_16S.excludeInvertedSeqs.cleannames.aln.raxml.reduced.phy.raxml.bootstraps
 # produce the ML tree file with branch supports
 
-raxml-ng --all --msa Vibrio_spp_16S.aln.raxml.reduced.phy.raxml.rba --model GTR+G4 --tree pars{1} --bs-trees 10  --threads 4
+raxml-ng --all --msa Vibrio_spp_16S.excludeInvertedSeqs.cleannames.aln.raxml.reduced.phy.raxml.rba --model GTR+G4 --tree pars{1} --bs-trees 10  --threads 4
 # do all this at once
 ```
 
@@ -91,7 +103,26 @@ raxml-ng --all --msa Vibrio_spp_16S.aln.raxml.reduced.phy.raxml.rba --model GTR+
 
 Building phylogenies is often used as a way to classify an organism of unknown taxonomic identity. However, a phylogeny built on 16S rDNA sequences may provide only an approximate link to taxonomic classification because of the instable nature of this classification (it is modified regularly by scientists based on evolving evidence) and its potential disagreement with results of phylogenetic investigations (bacteruial taxa are often found to be not monophyletic in trees). This is notably due to the possibility of horizontal transfer of the 16S gene among taxa, but also due to the uneven breath of diversity covered by bacterial species. For this reason, it may be more practical to reason in terms of Operational Taxonomic Units (OTUs) when attempting to assign a taxonomic identity to a sequence from an unknown organism.
 OTUs are simply groups of organisms based on the clustering of sequences of a marker gene such as the 16S rDNA at a given cutoff, often 95% identity for the 16S.
-These OTUs then can be robustly referred to without having to worry
+These OTUs then can be robustly referred to without having to worry about the volatility of the classification.
+
+We will thus clster the 16S sequences at hand to establish a reference set of OTUs, to which we will compare an unknown sequence obtained from an organism we ssuspect to be a vibrio.
+
+```sh
+# produce clean labels
+sed -e 's/ 16S.*//g' Vibrio_spp_16S.excludeInvertedSeqs.fasta | sed -e 's/ /_/g' > Vibrio_spp_16S.excludeInvertedSeqs.cleannames.fasta
+
+# cluster sequences at 95% similarity cutoff
+cd-hit -i Vibrio_spp_16S.excludeInvertedSeqs.cleannames.fasta -o Vibrio_spp_16S.excludeInvertedSeqs.cleannames.cd-hit.clust -c 0.95
+
+# add the unknown sequence to the file containing the representatives of each cluster
+cat unknown_sequence.fasta Vibrio_spp_16S.excludeInvertedSeqs.cleannames.cd-hit.clust > Vibrio_spp_16S.excludeInvertedSeqs.cleannames.cd-hit.clust.withunknown
+
+# align those sequences
+clustalo -i Vibrio_spp_16S.excludeInvertedSeqs.cleannames.cd-hit.clust.withunknown -o Vibrio_spp_16S.excludeInvertedSeqs.cleannames.cd-hit.clust.withunknown.aln
+
+# compute a tree feturing the unknown sequence in the context of the reference OTUs
+raxml-ng --all --msa Vibrio_spp_16S.excludeInvertedSeqs.cleannames.cd-hit.clust.withunknown.aln --model GTR+G4 --tree pars{1} --bs-trees 10  --threads 4
+```
 
 ## 3. Big whole-genome alignment and tree
 
