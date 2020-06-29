@@ -7,6 +7,7 @@
 conda install -c bioconda clustalo
 conda install -c bioconda raxml-ng
 conda install -c bioconda snp-sites
+conda install -c bioconda cd-hit
 ```
 ### or downloading separately
 
@@ -59,7 +60,8 @@ Using Seaview
 seaview Vibrio_spp_16S.aln &
 ```
 
-You may potentially have to remove sequences that do not seem homologous (or those that are the inverted complement of the sequence and won't align) by selecting them on the left and using `Edit > Delete sequence(s)`.
+Some sequences do not seem homologous or are the inverted complement of the sequence and won't align; tou may have to remove these sequences from the alignment by selecting them on the left and using `Edit > Delete sequence(s)`.
+A copy excluding these sequences is saved in the file `Vibrio_spp_16S.fasta.excludeInvertedSeqs`. 	 	
 
 ### Build a tree with RAxML-NG
 ```sh
@@ -85,6 +87,12 @@ raxml-ng --all --msa Vibrio_spp_16S.aln.raxml.reduced.phy.raxml.rba --model GTR+
 # do all this at once
 ```
 
+### Cluster sequences into OTUs with CD-HIT
+
+Building phylogenies is often used as a way to classify an organism of unknown taxonomic identity. However, a phylogeny built on 16S rDNA sequences may provide only an approximate link to taxonomic classification because of the instable nature of this classification (it is modified regularly by scientists based on evolving evidence) and its potential disagreement with results of phylogenetic investigations (bacteruial taxa are often found to be not monophyletic in trees). This is notably due to the possibility of horizontal transfer of the 16S gene among taxa, but also due to the uneven breath of diversity covered by bacterial species. For this reason, it may be more practical to reason in terms of Operational Taxonomic Units (OTUs) when attempting to assign a taxonomic identity to a sequence from an unknown organism.
+OTUs are simply groups of organisms based on the clustering of sequences of a marker gene such as the 16S rDNA at a given cutoff, often 95% identity for the 16S.
+These OTUs then can be robustly referred to without having to worry
+
 ## 3. Big whole-genome alignment and tree
 
 We'll try and build a tree from a whole-genome alignment, based on a subset of data from the study by Weill et al. (Nature, 2018) on the Yemen cholera epidemics: https://www.nature.com/articles/s41586-018-0818-3.  
@@ -95,8 +103,15 @@ The whole-genome alignment is too big, with more than 4M sites (alignment collum
 
 To tackle this, let's reduce the big whole-genome alignment to only the variable positions = a SNP alignment using `snp-sites`.
 ```sh
-snp-sites -o 50yemen2018.pseudo_genome.snp.aln.raxml.reduced.phy.raxml.pseudo_genome.snp.aln 50yemen2018.pseudo_genome.aln 
+snp-sites -o 50yemen2018.pseudo_genome.snp.aln 50yemen2018.pseudo_genome.aln 
 ```
+
+The original big alignment is not provided in this repository for the sake of file space, but the SNP alignment is provided in its compressed version; it can be unconpressed with the commmand:
+```sh
+gzip -d 50yemen2018.pseudo_genome.snp.aln.gz
+```
+
+
 Look at the alignment with seaview
 ```sh
 seaview 50yemen2018.pseudo_genome.snp.aln
