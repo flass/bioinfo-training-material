@@ -1,6 +1,8 @@
-## (Bio)Informatics FAQ: basics and more
+# (Bio)Informatics FAQ: basics and more
 
-### *Bash aliases* You seem to use `ll` instead of `ls -l`  is that a short-cut you've created yourself for something that you do often, like an Excel Macro?
+## Linux/shell
+
+### \[Bash aliases\] - You seem to use `ll` instead of `ls -l`  is that a short-cut you've created yourself for something that you do often, like an Excel Macro?
 
 yes it's like a macro - in bash language it's called an alias. the `ll` alias for `ls -l` is one that's commonly used and usually is already defined in Ubuntu distributions. Aliases are defined by the `alias` command. The syntax to declare an alias is like this:
 ```sh
@@ -29,3 +31,5 @@ alias rsync='/Users/fl4/homebrew/bin/rsync -avzuL'
 Note that you can override basic commands, like for my `rsync` alias, which includes some options, overrides the basic `rsync`. The best way to declare them is to have them declared in you `~/.bash_profile` file so that they're loaded every time you start a session
 To declare your own, try typing `alias ll='ls -alF'` and then the `ll` alias should be active.
 Again these aliases disapear every time you close the session, so best having them declared in your profile file so that they're automatically loaded.
+
+_______
