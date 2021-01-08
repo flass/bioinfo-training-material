@@ -1,0 +1,31 @@
+## (Bio)Informatics FAQ: basics and more
+
+### *Bash aliases* You seem to use `ll` instead of `ls -l`  is that a short-cut you've created yourself for something that you do often, like an Excel Macro?
+
+yes it's like a macro - in bash language it's called an alias. the `ll` alias for `ls -l` is one that's commonly used and usually is already defined in Ubuntu distributions. Aliases are defined by the `alias` command. The syntax to declare an alias is like this:
+```sh
+alias nameofalias="complex command line"
+```
+if you just type `alias` you get the list of what has been declared and is active in your session
+11:33
+in mine I have these aliases active:
+```sh
+[florent@mypc ~]$ alias
+alias aptx='archaeopteryx'
+alias conda2_activate='source /Users/fl4/miniconda2/etc/profile.d/conda.sh && conda activate'
+alias conda3_activate='source /Users/fl4/miniconda3/etc/profile.d/conda.sh && conda activate'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias gl='git log --graph --abbrev-commit --decorate --date=relative --format=format:'\''%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'\'' --all'
+alias grep='grep --color=auto'
+alias l='ls -CF'
+alias la='ls -A'
+alias ll='ls -alF'
+alias ls='gls --color=auto'
+alias panup='cd ~/software/pantagruel/ && git pull && git submodule update && cd -'
+alias rsync='/Users/fl4/homebrew/bin/rsync -avzuL'
+```
+
+Note that you can override basic commands, like for my `rsync` alias, which includes some options, overrides the basic `rsync`. The best way to declare them is to have them declared in you `~/.bash_profile` file so that they're loaded every time you start a session
+To declare your own, try typing `alias ll='ls -alF'` and then the `ll` alias should be active.
+Again these aliases disapear every time you close the session, so best having them declared in your profile file so that they're automatically loaded.
