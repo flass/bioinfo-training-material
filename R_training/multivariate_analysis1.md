@@ -1,7 +1,7 @@
-### Itroduction to Multivariate analysis with `ade4` in `R`
+# Itroduction to Multivariate analysis with `ade4` in `R`
 
-## Input data: a discrete numeric data table, with samples as rows and variables as columns
-# tables in other formats can be coerced to the right format with data.matrix()
+## Input data: 
+You need a discrete numeric data table, with samples as rows and variables as columns; tables in other formats can be coerced to the right format with `data.matrix()`.
 ```r
 # your AMR gene pres/abs table (1 or 0 values)
 amr = read.table(yourAMRtablefile)
@@ -25,9 +25,11 @@ Distance matrix of columns: to see how AMR and VF gened are related in their occ
 amr.coldist = dist(t(amr), method = "euclidean")
 plot(hclust(amr.coldist))
 ```
-# you could visulatise these cluterings along with the heatmp of your data
+You could visulatise these cluterings along with the heatmp of your data
+```r
 heatmap(amr, scale="none")
-# but an issue is that with a clustering approach you cannot know where the similarity among your samples/genes comes from 
+```
+it's all well and good but an issue is that with a clustering approach you cannot know where the similarity among your samples/genes comes from. By using distances as the information to build your clustering, you're loosing information: you don't knw because of similarity in profiles of which genes some samples may be clustered together. Aslo, three samples may be all as similar to each other based on the distance, but this may be due to similaruty in _different_ sets of genes.
 
 ## the finer way: multivariate data analysis
 So instead of simple clustering, you may want to use a multivariate data analyis approach.
@@ -128,7 +130,7 @@ s.arrow(dudi.amr_vf$co, clab = 0.6)
 # or with simple clustering:
 plot(hclust(dist(t(amr_vf), method = "euclidean")))
 ```
-# For other type of data:
+## For other type of data:
 For continuous data, better use principla Component Anlaysis (PCA); use dudi.pca()
 With PCA, it is worth using the options: `scale=TRUE, centre=TRUE`. 
 But if you believe that the varying ranges or scales of your data makes sense in terms of weighting, you could turn those parameters to FLASE and see what you get.
