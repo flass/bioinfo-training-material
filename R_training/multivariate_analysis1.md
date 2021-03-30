@@ -134,6 +134,7 @@ s.arrow(dudi.amr_vf$co, clab = 0.6)
 plot(hclust(dist(t(amr_vf), method = "euclidean")))
 ```
 ## For other type of data:
-For continuous data, better use principla Component Anlaysis (PCA); for this use `dudi.pca()`.  
-With PCA, it is worth using the options: `scale=TRUE, centre=TRUE`. 
-But if you believe that the varying ranges or scales of your data makes sense in terms of weighting, you could turn those parameters to FLASE and see what you get.
+For continuous data, better use Principal Component Anlaysis (PCA); for this use `dudi.pca()`.  
+With PCA, it is worth using the options: `scale=TRUE, centre=TRUE`, normalise and re-centre the range of values of your variable, so that vriation from each your variables are considered having an equal weight in the multi-dimensional space.
+This can be quite relevant for phenotype data, for instance: if you put together morphometric measurements of different body/plant/cell parts, while they share the same metric (e.g. mm), they will likely not share the same scale. However, who is to judge that 1 cm variation in the jaw width is not as important as 10cm variation in the femur length? By normalising and recentring i.e. transforming values so that they fit to a *N*(0,1) gaussian distribution, you will give each variable an equal importance.
+But if you believe that the varying scales or ranges of your data make sense in terms of weighting, you could keep them as is by turning the `scale` and `centre` parameters to `FALSE`, respectively, and see what you get.
