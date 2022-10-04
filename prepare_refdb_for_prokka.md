@@ -8,9 +8,12 @@ Second, a custom reference protein database can be provided for when it runs the
 
 Regarding the latter option, a strategy can be used to dereplicate those reference protein databases, as is explained about the [Prokka option --usegenus](https://github.com/tseemann/prokka#the-genus-databases)
 
+In this tutorial, we'll assume we're interested in annotating _Streptococcus suis_ genomes.
 
-## Prepare the prodigal training file
+## Prepare the Prodigal training file
 ### Download the genomic fasta file archive from the NCBI Assembly website
+
+Here we need good quality genomes that are hopefully diverse enough to cover the diversity of the species, but not too manay (see note below), so we put stringent criteria on the search when we go shopping for genome assemblies on the [NCBI Assembly database](https://www.ncbi.nlm.nih.gov/assembly), notably restricting to the RefSeq collection and only complete genomes.
 
 Search terms: `"Streptococcus suis"[Organism] AND ("latest refseq"[filter] AND "complete genome"[filter] AND all[filter] NOT anomalous[filter])`
 
@@ -33,12 +36,13 @@ memmb=4000
 bsub -Is -n2 -R "select[mem>${memmb}] rusage[mem=${memmb}] span[hosts=1]" -M${memmb} bash
 ```
 
-To run prodigal:
+To run Prodigal:
 ```sh
 # on the Sanger cluster, load the module
 module load prodigal/2.6.3--h516909a_2
 prodigal -i combined_111_Strepsuis_genomic.fna -p single -o combined_111_Strepsuis_genomic -t combined_111_Strepsuis_genomic.trn
 ```
+The file `combined_111_Strepsuis_genomic.trn` is the training file that can be passed on to Prokka via the option `--prodigaltf`.
 
 Note: Prodigal has a built-in limit of 32Mbp genome data as input.
 
@@ -53,19 +57,19 @@ If you do so, remember that only 32Mbp genome data ~ 16 Strep genomes are consid
 
 ## Producing a custom protein database as reference for the BLAST step (towards functional annotation transfer).
 
-This other step I definitely recommended to do as it will significantly improve the functional annotation - I actually think it is more important than training the prodigal model, but that depends if you’re more interested in predicting the protein sequence vs. their functional annotation.
+This other step I definitely recommended to do as it will significantly improve the functional annotation of the proteome - I actually think it is more important than training the Prodigal model, but that depends if you’re more interested in predicting the protein sequence vs. their functional annotation.
 
-For this you can download as many genomes as you want - I suggest taking the wider set of 1983 Streptococcus suis genomes available in RefSeq for this, as their proteomes are easily dereplicated using mmseqs.
+For this you can/should download as many genomes as you want - I suggest taking the wider set of 1983 _Streptococcus suis_ genomes available in RefSeq for this, as their proteomes are easily dereplicated using MMseqs.
 
 ### Download the protein fasta file archive from the NCBI Assembly website
 
 Search terms: `"Streptococcus suis"[Organism] AND ("latest refseq"[filter] AND all[filter] NOT anomalous[filter])`
 
-Use Download Assemblies > Source database: RefSeq > File type: protein fasta (.faa)
+Use `Download Assemblies` > `Source database: RefSeq` > `File type: protein fasta (.faa)`
 
 In this case the ~2k proteomes amount to ~ 800MB compressed data (1.5 GB uncompressed)
 
-(You can also download the “All file types” archive containing folders of all the file flavours - I find it handy for further reference, but it does take more space)
+(You can also download the `All file types` archive containing folders of all the file flavours - I find it handy for further reference, but it does take more space)
 
 ### Upload to the farm (can use rsync)
 
@@ -107,7 +111,7 @@ ls -lh *_rep_seq.fasta
 
 Looks like to me that the 98% protein id dereplication achieves a good size reduction
 
-So you could use this a the file to pass on to Prokka via the `--proteins` option
+So you could use `STREPSUIS098_rep_seq.fasta` as the file to pass on to Prokka via the `--proteins` option
 
 From there you sort of have a pipeline for preparation of a Prokka run!
 
