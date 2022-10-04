@@ -20,15 +20,19 @@ Search terms: `"Streptococcus suis"[Organism] AND ("latest refseq"[filter] AND "
 (Here you could manually select only 16 genomes out of the result list)
 Use `Download Assemblies` > `Source database: RefSeq` > `File type Genomic fasta (.fna)`
 
-### Upload to the farm (can use rsync)
+### Combine the files into a single fasta file
 
-### Uncompress and combine the files into a single fasta file
+#### Upload to the farm (can use rsync)
+
+#### Uncompress and combine the files into a single fasta file
 ```sh
 tar -xf genome_assemblies_genome_fasta.tar
 for f in $(ls $PWD/ncbi-genomes-2022-09-14/*.fna.gz) ; do zcat $f ; done > combined_111_Strepsuis_genomic.fna
 ```
 
-### Run prodigal to produce a training file (this is so fast that you probably don’t need to submit a job for this; I’ve run it on an interactive sub job)
+### Run prodigal to produce a training file 
+
+this is so fast that you probably don’t need to submit a job for this; I’ve run it on an interactive bsub job.
 
 To start an interactive job:
 ```sh
@@ -61,9 +65,34 @@ This other step I definitely recommended to do as it will significantly improve 
 
 For this you can/should download as many genomes as you want - I suggest taking the wider set of 1983 _Streptococcus suis_ genomes available in RefSeq for this, as their proteomes are easily dereplicated using MMseqs.
 
-### Download the protein fasta file archive from the NCBI Assembly website
-
 Search terms: `"Streptococcus suis"[Organism] AND ("latest refseq"[filter] AND all[filter] NOT anomalous[filter])`
+
+### Generate proteome from Genbank files
+
+It is recommended to use the `prokka-genbank_to_fasta_db` command to generate proteome files from GenBank genomic flat files as the output of this command will carry the right formatting to allow a maximum of information to be passsed on to Prokka.
+
+#### Download the GenBank flat files from the NCBI website 
+
+Use `Download Assemblies` > `Source database: RefSeq` > `File type: genomic GenBank format (.gbff)`
+
+In this case the ~2k proteomes amount to ~ 3.2GB compressed data.
+
+#### Upload to the farm (can use `rsync`).
+
+#### Uncompress and combine the files into a single GenBank flat file
+```sh
+tar -xf genome_assemblies_genome_gb.tar
+for f in $(ls $PWD/ncbi-genomes-2022-09-14/*.gbff.gz) ; do zcat $f ; done > combined_1983_Strepsuis_genomic.gbff
+```
+#### Run the prokka utility script to extract proteomes from genomic files
+
+```sh
+tar -xf genome_assemblies_genome_gb.tar
+prokka-genbank_to_fasta_db combined_1983_Strepsuis_genomic.gbff | gzip -c > combined_1983_Strepsuis_protein.faa.gz
+```
+### Or download the protein fasta file archive from the NCBI Assembly website
+
+#### Download the GenBank flat files from the NCBI website 
 
 Use `Download Assemblies` > `Source database: RefSeq` > `File type: protein fasta (.faa)`
 
@@ -71,9 +100,9 @@ In this case the ~2k proteomes amount to ~ 800MB compressed data (1.5 GB uncompr
 
 (You can also download the `All file types` archive containing folders of all the file flavours - I find it handy for further reference, but it does take more space)
 
-### Upload to the farm (can use rsync)
+#### Upload to the farm (can use `rsync`).
 
-### Uncompress and combine the files into a single gzipped fasta file (no need to uncompress the individual proteome files)
+#### Uncompress and combine the files into a single gzipped fasta file (no need to uncompress the individual proteome files)
 ```sh
 tar -xf genome_assemblies_prot_fasta.tar
 cat $PWD/ncbi-genomes-2022-09-14/*.faa.gz > combined_1983_Strepsuis_protein.faa.gz
