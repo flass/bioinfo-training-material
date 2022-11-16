@@ -39,15 +39,15 @@ So your samples are data points in that orthoganal variable space, forming a clo
 - there are more than 3 dimensions and our eyes can't deal with that; so you need to make a porjection onto a limited ammount of dimensions that we can handle, typically 2.
 - you then need to find the right angle to project on, so that you see your data most clearly, typically looking to separate/spread the data points the best you can
 
-To illustrate this, imagine a view of [a galaxy from outside](illustrations/1920px-Andromeda_Galaxy_(with_h-alpha).jpg); your samples here are stars, and the vraiables are actual space corrdinates. If looking at the galaxy [from the side](illustrations/potw1305a.jpg), you see the spread stars in length, but not much in height; it's not optimal. maybe your galaxy is an elongated elisis, not a circle. So let's say before you looked a t it from the long side. Now, from the short side, it's even worth: you see the starts cramed in height and quite packed in a short width too. And what about time, the fourth dimension of spacetime? If you'd consider it, there may be some variations among all your stars (maybe because of mass variations? don't ask me i'm no physicist), but the variation in their time coordinates would be so minute  with respect to the other space variables, that you would see absolutely nothing by projecting your stars data onto the time axis. Thus the best projection of your star data is on the galactic plane i.e. seen [from above](illustrations/milkywayfromtop.png).
+To illustrate this, imagine a view of [a galaxy from outside](illustrations/1920px-Andromeda_Galaxy_(with_h-alpha).jpg); your samples here are stars, and the vraiables are actual space corrdinates. If looking at the galaxy [from the side](illustrations/potw1305a.jpg), you see the stars spread in length, but not much in height; it's not optimal. maybe your galaxy is an elongated elisis, not a circle. So let's say before you looked at it from the long side. Now, you can look from the short side: it's even worse; you see the starts cramed in height and quite packed in a short width too. And what about time, the fourth dimension of spacetime? If you'd consider it, there may be some variations among all your stars (maybe because of mass variations? don't ask me I'm no physicist), but the variation in their time coordinates would be so minute with respect to the other space variables, that you would see absolutely nothing by projecting your stars data onto the time axis. Thus the best projection of your star data is on the galactic plane i.e. seen [from above](illustrations/milkywayfromtop.png).
 
-Multivariate data analyis methods such as CoA or PCA allow you to opperate an optimal rotation of your multivariate data space into a projection, so that the variance of your sample points i.e. their spread is maximised on the first axes of the projection. The axes of this projection space are still orthogonal, they're just rotated from the initial coordinate base; new axes are ranked according to which captures the most variance, as indicated by their _eigenvalues_. 
+Multivariate data analyis methods such as correspondance analysis (CoA) or principal component analysis (PCA) allow you to opperate an optimal rotation of your multivariate data space into a projection, so that the variance of your sample points i.e. their spread is maximised on the first axes of the projection. The axes of this projection space are still orthogonal, they're just rotated from the initial coordinate base; new axes are ranked according to which captures the most variance, as indicated by their _eigenvalues_. 
 
 To do such things, we'll now use the package `ade4`, but there are others that provide simialr function
 ```r
 library(ade4)
 ```
-Here with discrete count data, we better use Correspondance Analysis (CoA)
+Here we have discrete count data, so we'd better use Correspondance Analysis (CoA)
 ```r
 ndim = ncol(amr) - 1
 amr.coa = dudi.coa(amr, scannf = FALSE, nf = ndim)
@@ -74,8 +74,8 @@ for (i in 1:(ncol(dudi.amr$li)-1)){
 
 ## Exploring your data using the various axis/planes of your projection
 
-Going through the dimensions of the prjections you may realise that the variance (spread of you sample points) in some of the axis is all due to the separation of a few samples with very specific patterns i.e. outliers vs. the rest of your samples that remain stuck together near the plane origin
-For instance, a sample with a unique profile presenting genes occurring only in this sample will separate very strongly - but it's a bit trivial information that should dealt with separately
+Going through the dimensions of the projections, you may realise that the variance (spread of you sample points) in some of the axes is all due to the separation of a few samples with very specific patterns i.e. outliers vs. the rest of your samples that remain stuck together near the plane origin.
+For instance, a sample with a unique profile presenting genes occurring only in this sample will separate very strongly - but it's a bit of a trivial information that should be dealt with separately.
 ```r
 outlier = 'outliersample' # the row name of that outlier, as should appear on the plots above
 row.outlier = which(rownames(amr.noout)==outlier) # the corresponding row number
